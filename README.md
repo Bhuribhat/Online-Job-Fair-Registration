@@ -35,16 +35,30 @@
 2. The system shall allow companies to view the profiles of users who book an interview session.
 3. The system shall allow companies to cancel an interview session at least 24 hours in advance.
 
+---
+
 ## Diagram
 
 ### ER Diagram
-<!-- TODO -->
+
+![ER Diagram](./assets/UML/ERDiagram/erdiagram.svg)
 
 ### Class Diagram
-<!-- TODO -->
+
+![Class Diagram](./assets/UML/ClassDiagram/classdiagram.svg)
 
 ### Sequence Diagram
+
+#### Auth
 <!-- TODO -->
+
+#### Company
+<!-- TODO -->
+
+#### Booking
+<!-- TODO -->
+
+---
 
 ## Demo: Functional Requirements
 <!-- TODO -->

@@ -1,0 +1,92 @@
+@startuml
+skinparam linetype ortho
+left to right direction
+
+package "Online Job Fair Registration" {
+    
+    class "<<Application>>\nJobFairService" as JobFairService {}
+
+    ' AUTHENTICATION FLOW
+    class "<<Resource>>\nAuthentication" as ResourceAuthentication {}
+
+    class "<<Resource>>\nRegister" as RegisterResource {
+        <<POST>> +register(): User
+    }
+
+    class "<<Resource>>\nLogin" as LoginResource {
+        <<POST>> +login(): User
+    }
+
+    class "<<Resource>>\nGetMe" as GetMeResource {
+        <<GET>> +getMe(): User
+    }
+
+    class "<<Resource>>\nLogout" as LogoutResource {
+        <<GET>> +logout(): void
+    }
+
+    ' USER RESOURCE
+    ' class "<<Representation>>\nUser" as RepresentationUser {
+    '     - name : string
+    '     - tel: string
+    '     - email : string
+    '     - password : string
+    '     - role : string
+    '     - createdAt : date
+    '     - resetPasswordToken : string
+    '     - resetPasswordExpire : date
+    ' }
+
+    ' COMPANY RESOURCE
+    class "<<Resource>>\nCompanies" as ResourceCompanies {
+        <<GET>> +getCompanies(): Company[]
+        <<POST>> +createCompany(): Company
+    }
+
+    class "<<Resource>>\nCompany" as ResourceCompany {
+        <<GET>> +getCompany(): Company
+        <<PUT>> +updateCompany(): Company
+        <<DELETE>> +deleteCompany(): void
+    }
+
+    class "<<Representation>>\nCompany" as RepresentationCompany {
+        - name : string
+        - address : string
+        - website : string
+        - tel : string
+        - description : string
+    }
+
+    ' BOOKING RESOURCE
+    class "<<Resource>>\nBookings" as ResourceBookings {
+        <<GET>> +getBookings(): Booking[]
+        <<POST>> +createBooking(): Booking
+    }
+
+    ' class "<<Resource>>\nBooking" as ResourceBooking {
+    '     <<GET>> +getBooking(): Booking
+    '     <<PUT>> +updateBooking(): Booking
+    '     <<DELETE>> +deleteBooking(): void
+    ' }
+
+    class "<<Representation>>\nBooking" as RepresentationBooking {
+        - userId : int
+        - companyId : int
+        - apptDate : date
+        - createdAt : date
+    }
+}
+
+' Application to Resource relationships
+JobFairService ..> ResourceAuthentication : "/auth\n<<Path>>"
+ResourceAuthentication ..> RegisterResource : "/register\n<<Path>>"
+ResourceAuthentication ..> LoginResource : "/login\n<<Path>>"
+ResourceAuthentication ..> GetMeResource : "/getMe\n<<Path>>"
+ResourceAuthentication ..> LogoutResource : "/logout\n<<Path>>"
+
+JobFairService ..> ResourceCompanies : "/companies\n<<Path>>"
+ResourceCompanies ..> ResourceCompany : "/{companyId}\n<<Path>>"
+ResourceCompany ..> RepresentationCompany : "<<use>>"
+
+JobFairService ..> ResourceBookings : "/bookings\n<<Path
+ResourceBookings ..> RepresentationBooking : "/:bookingId\n<<Path>>"

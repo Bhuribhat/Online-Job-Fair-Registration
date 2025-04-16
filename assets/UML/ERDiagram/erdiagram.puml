@@ -1,0 +1,42 @@
+@startuml
+title Online Job Fair Registration - ER Diagram
+left to right direction
+
+' Define Entities
+entity User {
+    * userId : int <<PK>>
+    --
+    name : string
+    tel: string
+    email : string
+    password : string
+    role : string
+    createdAt : date
+    resetPasswordToken : string
+    resetPasswordExpire : date
+}
+
+entity Company {
+    * companyId : int <<PK>>
+    --
+    name : string
+    address : string
+    website : string
+    tel : string
+    description : string
+}
+
+entity Booking {
+    * bookingId : int <<PK>>
+    --
+    userId : int <<FK>>
+    companyId : int <<FK>>
+    apptDate : date
+    createdAt : date
+}
+
+' Relationships
+User ||--o{ Booking : makes 
+Booking }o--|| Company : receives
+
+@enduml

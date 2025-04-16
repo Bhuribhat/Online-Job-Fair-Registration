@@ -6,3 +6,6 @@ config/config.env
 
 # ignore .DS_Store
 */.DS_Store
+
+# ignore out folder from puml
+out/
