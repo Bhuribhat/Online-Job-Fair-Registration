@@ -1,6 +1,6 @@
 @startuml
 skinparam linetype ortho
-left to right direction
+top to bottom direction
 
 package "Online Job Fair Registration" {
     
@@ -22,20 +22,20 @@ package "Online Job Fair Registration" {
     }
 
     class "<<Resource>>\nLogout" as LogoutResource {
-        <<GET>> +logout(): void
+        <<GET>> +logout(): Void
     }
 
     ' USER RESOURCE
-    ' class "<<Representation>>\nUser" as RepresentationUser {
-    '     - name : string
-    '     - tel: string
-    '     - email : string
-    '     - password : string
-    '     - role : string
-    '     - createdAt : date
-    '     - resetPasswordToken : string
-    '     - resetPasswordExpire : date
-    ' }
+    class "<<Representation>>\nUser" as RepresentationUser {
+        - name : string
+        - tel: string
+        - email : string
+        - password : string
+        - role : string
+        - createdAt : date
+        - resetPasswordToken : string
+        - resetPasswordExpire : date
+    }
 
     ' COMPANY RESOURCE
     class "<<Resource>>\nCompanies" as ResourceCompanies {
@@ -60,14 +60,14 @@ package "Online Job Fair Registration" {
     ' BOOKING RESOURCE
     class "<<Resource>>\nBookings" as ResourceBookings {
         <<GET>> +getBookings(): Booking[]
-        <<POST>> +createBooking(): Booking
     }
 
-    ' class "<<Resource>>\nBooking" as ResourceBooking {
-    '     <<GET>> +getBooking(): Booking
-    '     <<PUT>> +updateBooking(): Booking
-    '     <<DELETE>> +deleteBooking(): void
-    ' }
+        class "<<Resource>>\nBooking" as ResourceBooking {
+        <<POST>> +createBooking(): Booking
+        <<GET>> +getBooking(): Booking
+        <<PUT>> +updateBooking(): Booking
+        <<DELETE>> +deleteBooking(): void
+    }
 
     class "<<Representation>>\nBooking" as RepresentationBooking {
         - userId : int
@@ -88,5 +88,10 @@ JobFairService ..> ResourceCompanies : "/companies\n<<Path>>"
 ResourceCompanies ..> ResourceCompany : "/{companyId}\n<<Path>>"
 ResourceCompany ..> RepresentationCompany : "<<use>>"
 
-JobFairService ..> ResourceBookings : "/bookings\n<<Path
-ResourceBookings ..> RepresentationBooking : "/:bookingId\n<<Path>>"
+JobFairService ..> ResourceBookings : "/bookings\n<<Path>>
+ResourceBookings ..> ResourceBooking : "/:bookingId\n<<Path>>"
+ResourceBooking ..> RepresentationBooking : "<<use>>"
+
+RegisterResource ..> RepresentationUser: "<<use>>"
+LoginResource ..> RepresentationUser: "<<use>>"
+GetMeResource ..> RepresentationUser: "<<use>>"
