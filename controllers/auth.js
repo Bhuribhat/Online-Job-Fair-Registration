@@ -5,7 +5,8 @@ const User = require("../models/User");
 //@access   Public
 exports.register = async (req, res, next) => {
     try {
-        const { name, email, password, role } = req.body;
+        const { name, email, password, role, tel } = req.body;
+        console.log(tel)
 
         // Create user to the database
         const user = await User.create({
@@ -13,6 +14,7 @@ exports.register = async (req, res, next) => {
           email,
           password,
           role,
+          tel
         });
         
         // Create token
@@ -88,6 +90,7 @@ const sendTokenResponse = (user, statusCode, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
+            tel: user.tel,
             /* END FOR FRONTEND */
             token 
         });

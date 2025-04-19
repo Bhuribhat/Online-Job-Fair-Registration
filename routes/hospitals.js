@@ -2,7 +2,9 @@ const express = require('express');
 const router = express.Router();
 
 const { protect, authorize } = require('../middleware/auth')
+// const { getHospitals, getHospital, createHospital, updateHospital, deleteHospital } = require('../controllers/hospitals');
 const { getHospitals, getHospital, createHospital, updateHospital, deleteHospital } = require('../controllers/hospitals');
+
 
 /**
 * @swagger
