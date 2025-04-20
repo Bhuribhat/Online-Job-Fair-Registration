@@ -70,8 +70,13 @@ exports.getBooking = async (req, res, next) => {
 // @access  Private
 exports.addBooking = async (req, res, next) => {
     try {
-        req.body.company = req.params.companyId;
-        const company = await Company.findById(req.params.companyId);
+        // console.log(req.body.company)
+        // NOT SURE
+        // req.body.company = req.params.companyId;
+        // console.log("Print company in request")
+        // console.log(req.body.company)
+        console.log(req.params)
+        const company = await Company.findById(req.body.company);
         if (!company) {
             return res.status(404).json({success: false, message: `No hospital with the id of ${req.params.companyId}`});
         }
