@@ -1,0 +1,31 @@
+@startuml Register (POST)
+
+header Online Job Fair Registration
+title "Register (POST)"
+
+participant "Client" as client
+participant "<<javaScript>>\n:server" as server
+participant "<<router>>\n:auth" as routerAuth
+participant "<<controllers>>\n:auth" as controllersAuth
+participant "<<model>>\n:User" as modelUser
+database "<<Database>>\n:MongoDB" as UsersDatabase
+
+client->server ++:req.post('/auth/register')
+server->routerAuth ++:app.use('/auth',auth)
+routerAuth -> controllersAuth ++:register()
+controllersAuth -> modelUser ++:create(name,tel,email,password,role)
+modelUser -> UsersDatabase ++:create(name,tel,email,password,role)
+modelUser <- UsersDatabase --:user
+controllersAuth <- modelUser --:user
+
+alt [Fail]
+    client <- controllersAuth --:response fail
+else [Success]
+    controllersAuth -> controllersAuth ++:sendToken
+    controllersAuth -> modelUser ++:user.getSigned\nJwtToken()
+    modelUser -> modelUser :jwt.sign(user.id)
+    controllersAuth <- modelUser --:token
+    client <- controllersAuth --:response success, token
+end
+
+@enduml

@@ -1,5 +1,10 @@
 # Online Job Fair Registration
 
+### Developers
+
+- 6770259621 Pachara Boonsarngsuk 
+- 6772077021 Bhuribhat Ratanasanguanvongs
+
 ### Non-Functional Requirements
 
 - Security:
@@ -53,6 +58,114 @@
 
 <details><summary><h3>Sequence Diagram</h3></summary>
 
+<h4>Auth</h4>
+
+<details><summary>1. Get me</summary>
+
+![GetMe](./assets/UML/SequenceDiagram/Auth/Get%20Me%20(GET).svg)
+
+</details>
+
+<details><summary>2. Login</summary>
+
+![Login](./assets/UML/SequenceDiagram/Auth/Login%20(POST).svg)
+
+</details>
+
+<details><summary>3. Logout</summary>
+
+![Logout](./assets/UML/SequenceDiagram/Auth/Logout%20(GET).svg)
+
+</details>
+
+<details><summary>4. Register</summary>
+
+![Register](./assets/UML/SequenceDiagram/Auth/Register%20(POST).svg)
+
+</details>
+
+<h4>Company</h4>
+
+<!-- TODO -->
+<details><summary>1. Create a new company</summary>
+
+![]()
+
+</details>
+
+<!-- TODO -->
+<details><summary>2. Delete a single company</summary>
+
+![]()
+
+</details>
+
+<!-- TODO -->
+<details><summary>3. Get a single company</summary>
+
+![]()
+
+</details>
+
+<!-- TODO -->
+<details><summary>4. Get all companies</summary>
+
+![]()
+
+</details>
+
+<!-- TODO -->
+<details><summary>5. Update a single company</summary>
+
+![]()
+
+</details>
+
+<h4>Booking</h4>
+
+<!-- TODO -->
+<details><summary>1. Create a new booking</summary>
+
+![]()
+
+</details>
+
+<!-- TODO -->
+<details><summary>2. Delete a single booking</summary>
+
+![]()
+
+</details>
+
+<!-- TODO -->
+<details><summary>3. Get a single booking</summary>
+
+![]()
+
+</details>
+
+<!-- TODO -->
+<details><summary>4. Get all bookings</summary>
+
+![]()
+
+</details>
+
+<!-- TODO -->
+<details><summary>5. Update a single booking</summary>
+
+![]()
+
+</details>
+
+</details>
+
+---
+
+## __Demo:__ Functional Requirements
+
+### As `User`
+
 #### Auth
 <!-- TODO -->
 
@@ -62,9 +175,13 @@
 #### Booking
 <!-- TODO -->
 
-</details>
+### As `Admin`
 
----
+#### Auth
+<!-- TODO -->
 
-## Demo: Functional Requirements
+#### Company
+<!-- TODO -->
+
+#### Booking
 <!-- TODO -->

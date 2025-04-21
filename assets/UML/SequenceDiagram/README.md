@@ -3,10 +3,10 @@
 ## Files
 
 - `Auth`
-    - [ ] getMe
-    - [ ] login
-    - [ ] logout
-    - [ ] register
+    - [x] Get me
+    - [x] Login
+    - [x] Logout
+    - [x] Register
 - `Company`
     - [ ] Create a new company
     - [ ] Delete a single company

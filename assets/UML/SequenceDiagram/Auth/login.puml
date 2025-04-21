@@ -1,0 +1,43 @@
+@startuml Login (POST)
+
+header Online Job Fair Registration
+title "Login (POST)"
+
+participant "Client" as client
+participant "<<javaScript>>\n:server" as server
+participant "<<router>>\n:auth" as routerAuth
+participant "<<controllers>>\n:auth" as controllersAuth
+participant "<<model>>\n:User" as modelUser
+database "<<Database>>\n:MongoDB" as UsersDatabase
+
+client->server ++:req.post('/auth/login')
+server->routerAuth ++:app.use('/auth',auth)
+routerAuth -> controllersAuth ++:login()
+
+alt Missing email or password
+    controllersAuth -> client --:Email and password required
+else Email provided
+    controllersAuth -> modelUser ++:findOne(email)
+    modelUser -> UsersDatabase ++:findOne(email)
+    modelUser <- UsersDatabase --:user
+
+    alt User not found
+        controllersAuth <- modelUser --:null
+        controllersAuth -> client --:Invalid email
+    else User found
+        controllersAuth <- modelUser --:user
+        controllersAuth -> modelUser ++:matchPassword(password)
+        modelUser -> UsersDatabase ++:bcrypt.compare(enteredPassword, this.password)
+        modelUser <- UsersDatabase --:isMatch
+
+        alt Password does not match
+            controllersAuth <- modelUser --:false
+            controllersAuth -> client --:Invalid assword
+        else Password matches
+            controllersAuth <- modelUser --:true
+            controllersAuth -> client --:Login successful
+        end
+    end
+end
+
+@enduml
