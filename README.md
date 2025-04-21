@@ -45,7 +45,7 @@
 
 ### Class Diagram
 
-![Class Diagram](./assets/UML/ClassDiagram/classdiagram.svg)
+![Class Diagram](./assets/UML/CLassDiagram/classdiagram.svg)
 
 ### Sequence Diagram
 
