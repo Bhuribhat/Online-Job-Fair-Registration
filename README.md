@@ -39,15 +39,19 @@
 
 ## Diagram
 
-### ER Diagram
+<details><summary><h3>ER Diagram</h3></summary>
 
 ![ER Diagram](./assets/UML/ERDiagram/erdiagram.svg)
 
-### Class Diagram
+</details>
+
+<details><summary><h3>Class Diagram</h3></summary>
 
 ![Class Diagram](./assets/UML/CLassDiagram/classdiagram.svg)
 
-### Sequence Diagram
+</details>
+
+<details><summary><h3>Sequence Diagram</h3></summary>
 
 #### Auth
 <!-- TODO -->
@@ -57,6 +61,8 @@
 
 #### Booking
 <!-- TODO -->
+
+</details>
 
 ---
 
