@@ -10,8 +10,8 @@
 - `Company`
     - [ ] Create a new company
     - [ ] Delete a single company
-    - [ ] Get a single company
-    - [ ] Get all companies
+    - [x] Get a single company
+    - [x] Get all companies
     - [ ] Update a single company 
 - `Booking`
     - [x] Create a new booking

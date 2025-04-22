@@ -1,0 +1,22 @@
+@startuml Manage Company (GET ALL)
+
+header Online Job Fair Registration
+title "Get All Companies (GET ALL)"
+
+participant "Client" as client
+participant "<<javaScript>>\n:server" as server
+participant "<<router>>\n:companies" as routerCompanies
+participant "<<controllers>>\n:companies" as controllersCompanies
+participant "<<model>>\n:Company" as modelCompany
+database "<<Database>>\n:MongoDB" as DatabaseSchema
+
+client->server ++:req.get('/companies')
+server->routerCompanies --:app.use('/companies', companies)
+routerCompanies -> controllersCompanies ++:getCompanies()
+controllersCompanies->modelCompany ++:Company.find(queryStr)
+modelCompany ->DatabaseSchema ++: CompanySchema
+DatabaseSchema --> modelCompany --: companies
+controllersCompanies <-- modelCompany --: companies
+client <- controllersCompanies --:response
+
+@enduml

@@ -42,6 +42,34 @@
 
 ---
 
+## Environment
+
+Set `config/config.env`
+
+```bash
+PORT=5000
+NODE_ENV=development
+
+MONGO_URI=
+
+JWT_SECRET=
+JWT_EXPIRE=
+JWT_COOKIE_EXPIRE=
+```
+
+## How To Run The Application
+
+After cloning the repository, you'll need to install the dependencies listed in the `package.json` file. After running `npm install`, the `node_modules` directory will be created, and all required packages will be installed. You can then run the project as usual.
+
+```bash
+$ git clone https://github.com/Bhuribhat/Online-Job-Fair-Registration.git
+$ cd "Online-Job-Fair-Registration"
+$ npm install
+$ npm run dev
+```
+
+---
+
 ## Diagram
 
 ### ER Diagram
@@ -85,35 +113,33 @@
 <!-- TODO -->
 <details><summary>1. Create a new company</summary>
 
-![]()
+![Create a new company]()
 
 </details>
 
 <!-- TODO -->
 <details><summary>2. Delete a single company</summary>
 
-![]()
+![Delete a single company]()
 
 </details>
 
-<!-- TODO -->
 <details><summary>3. Get a single company</summary>
 
-![]()
+![Get a single company](./assets/UML/SequenceDiagram/Company/Manage%20Company%20(GET%20ONE).svg)
 
 </details>
 
-<!-- TODO -->
 <details><summary>4. Get all companies</summary>
 
-![]()
+![Get all companies](./assets/UML/SequenceDiagram/Company/Manage%20Company%20(GET%20ALL).svg)
 
 </details>
 
 <!-- TODO -->
 <details><summary>5. Update a single company</summary>
 
-![]()
+![Update a single company]()
 
 </details>
 

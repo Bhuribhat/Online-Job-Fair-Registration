@@ -1,0 +1,22 @@
+@startuml Manage Company (GET ONE)
+
+header Online Job Fair Registration
+title "Get a Single Company (GET ONE)"
+
+participant "Client" as client
+participant "<<javaScript>>\n:server" as server
+participant "<<router>>\n:companies" as routerCompanies
+participant "<<controllers>>\n:companies" as controllersCompanies
+participant "<<model>>\n:Company" as modelCompany
+database "<<Database>>\n:MongoDB" as DatabaseSchema
+
+client->server ++:req.get('/companies/:id')
+server->routerCompanies --:app.use('/companies', companies)
+routerCompanies -> controllersCompanies ++:getCompany()
+controllersCompanies->modelCompany ++:findById(req.params.id);
+modelCompany ->DatabaseSchema ++: CompanySchema
+DatabaseSchema --> modelCompany --: company
+controllersCompanies <-- modelCompany --: company
+client <- controllersCompanies --:response
+
+@enduml
