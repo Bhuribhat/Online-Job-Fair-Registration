@@ -33,8 +33,8 @@ else [Success]
     modelCompany <-- DatabaseSchema --: company
     controllersCompanies <-- modelCompany --: company
 
-    controllersCompanies -> modelCompany ++:pre('remove')
-    modelCompany -> modelBooking ++:Company.deleteOne()
+    controllersCompanies -> modelCompany ++:Company.deleteOne(req.params.id)
+    modelCompany -> modelBooking ++:Company.deleteMany(req.params.id)
     modelBooking -> DatabaseSchema ++: BookingSchema
     modelBooking <-- DatabaseSchema --: booking
     modelCompany <-- modelBooking --: booking
