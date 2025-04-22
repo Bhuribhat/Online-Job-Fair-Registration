@@ -8,11 +8,11 @@
     - [x] Logout
     - [x] Register
 - `Company`
-    - [ ] Create a new company
-    - [ ] Delete a single company
+    - [x] Create a new company
+    - [x] Delete a single company
     - [x] Get a single company
     - [x] Get all companies
-    - [ ] Update a single company 
+    - [x] Update a single company 
 - `Booking`
     - [x] Create a new booking
     - [x] Delete a single booking

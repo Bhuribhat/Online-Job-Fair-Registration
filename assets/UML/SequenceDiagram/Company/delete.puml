@@ -1,0 +1,48 @@
+@startuml Manage Company (DELETE)
+
+header Online Job Fair Registration
+title "Delete a Single Company (DELETE)"
+
+participant "Client" as client
+participant "<<javaScript>>\n:server" as server
+participant "<<router>>\n:companies" as routerCompanies
+participant "<<middleware>>\n:auth" as auth
+participant "<<service>>\n:jwt" as jwt
+participant "<<controllers>>\n:companies" as controllersCompanies
+participant "<<model>>\n:Company" as modelCompany
+participant "<<model>>\n:Booking" as modelBooking
+database "<<Database>>\n:MongoDB" as DatabaseSchema
+
+client->server ++:req.delete('/companies/:id')
+server->routerCompanies ++:app.use('/companies', companies)
+routerCompanies -> auth ++:protect()
+auth -> jwt ++:verify(token, secret)
+auth <-- jwt --:decoded
+
+alt [Fail]
+    client <- auth --:response fail
+else [Success]
+    routerCompanies <-- auth --:next()
+    routerCompanies -> auth ++:authorize("admin")
+    routerCompanies <-- auth --:next()
+
+    routerCompanies -> controllersCompanies ++:deleteCompany()
+
+    controllersCompanies->modelCompany ++:Company.findById\n(req.params.id, req.body)
+    modelCompany ->DatabaseSchema ++: CompanySchema
+    modelCompany <-- DatabaseSchema --: company
+    controllersCompanies <-- modelCompany --: company
+
+    controllersCompanies -> modelCompany ++:pre('remove')
+    modelCompany -> modelBooking ++:Company.deleteOne()
+    modelBooking -> DatabaseSchema ++: BookingSchema
+    modelBooking <-- DatabaseSchema --: booking
+    modelCompany <-- modelBooking --: booking
+    modelCompany -> DatabaseSchema ++: CompanySchema
+    modelCompany <-- DatabaseSchema --: company
+    controllersCompanies <-- modelCompany --: company
+
+    client <- controllersCompanies --:response
+end
+
+@enduml

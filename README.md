@@ -110,17 +110,15 @@ $ npm run dev
 
 <h4>Company</h4>
 
-<!-- TODO -->
 <details><summary>1. Create a new company</summary>
 
-![Create a new company]()
+![Create a new company](./assets/UML/SequenceDiagram/Company/Manage%20Company%20(POST).svg)
 
 </details>
 
-<!-- TODO -->
 <details><summary>2. Delete a single company</summary>
 
-![Delete a single company]()
+![Delete a single company](./assets/UML/SequenceDiagram/Company/Manage%20Company%20(DELETE).svg)
 
 </details>
 
@@ -136,10 +134,9 @@ $ npm run dev
 
 </details>
 
-<!-- TODO -->
 <details><summary>5. Update a single company</summary>
 
-![Update a single company]()
+![Update a single company](./assets/UML/SequenceDiagram/Company/Manage%20Company%20(PUT).svg)
 
 </details>
 

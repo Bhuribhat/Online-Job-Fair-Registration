@@ -1,0 +1,39 @@
+@startuml Manage Company (PUT)
+
+header Online Job Fair Registration
+title ""Update a Single Company (PUT)"
+
+participant "Client" as client
+participant "<<javaScript>>\n:server" as server
+participant "<<router>>\n:companies" as routerCompanies
+participant "<<middleware>>\n:auth" as auth
+participant "<<service>>\n:jwt" as jwt
+participant "<<controllers>>\n:companies" as controllersCompanies
+participant "<<model>>\n:Company" as modelCompany
+database "<<Database>>\n:MongoDB" as DatabaseSchema
+
+client->server ++:req.update('/companies/:id')
+server->routerCompanies ++:app.use('/companies', companies)
+routerCompanies -> auth ++:protect()
+auth -> jwt ++:verify(token, secret)
+auth <-- jwt --:decoded
+
+alt [Fail]
+    client <- auth --:response fail
+else [Success]
+    routerCompanies <-- auth --:next()
+
+    routerCompanies -> auth ++:authorize("admin")
+    routerCompanies <-- auth --:next()
+
+    routerCompanies -> controllersCompanies ++:updateCompany()
+
+    controllersCompanies->modelCompany ++:Company.findByIdAndUpdate\n(req.params.id, req.body)
+    modelCompany ->DatabaseSchema ++: CompanySchema
+    modelCompany <-- DatabaseSchema --: company
+    controllersCompanies <-- modelCompany --: company
+
+    client <- controllersCompanies --:response
+end
+
+@enduml
