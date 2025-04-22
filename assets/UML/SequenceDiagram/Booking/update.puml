@@ -19,26 +19,31 @@ server->routerBookings ++:app.use('/bookings', bookings)
 routerBookings -> auth ++:protect()
 auth -> jwt ++:verify(token, secret)
 auth <- jwt --:decoded
-auth -> modelUser ++:findById(decoded, id)
-modelUser -> DatabaseSchema ++:UserSchema
-modelUser <- DatabaseSchema --:user
-auth <- modelUser --:req.user
-routerBookings <- auth --:next()
 
-routerBookings -> auth ++:authorize("admin",""user)
-routerBookings <-- auth --:next()
+alt [Fail]
+    client <- auth --:response fail
+else [Success]
+    auth -> modelUser ++:findById(decoded, id)
+    modelUser -> DatabaseSchema ++:UserSchema
+    modelUser <- DatabaseSchema --:user
+    auth <- modelUser --:req.user
+    routerBookings <- auth --:next()
 
-routerBookings -> auth ++:updateBooking()
-auth -> controllersBookings ++:updateBooking()
-controllersBookings->modelBooking ++:findById(req.params.id)
-modelBooking ->DatabaseSchema ++: BookingSchema
-DatabaseSchema --> modelBooking --: booking
-controllersBookings <-- modelBooking --:booking
+    routerBookings -> auth ++:authorize("admin",""user)
+    routerBookings <-- auth --:next()
 
-alt The date is not during May 10-13, 2022
-    controllersBookings->client --:response fail
-else [success]
-    controllersBookings->client --:response
+    routerBookings -> auth ++:updateBooking()
+    auth -> controllersBookings ++:updateBooking()
+    controllersBookings->modelBooking ++:findById(req.params.id)
+    modelBooking ->DatabaseSchema ++: BookingSchema
+    DatabaseSchema --> modelBooking --: booking
+    controllersBookings <-- modelBooking --:booking
+
+    alt The date is not during May 10-13, 2022
+        controllersBookings->client --:response fail
+    else [success]
+        controllersBookings->client --:response
+    end
 end
 
 @enduml

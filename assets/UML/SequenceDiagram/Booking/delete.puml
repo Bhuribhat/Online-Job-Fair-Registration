@@ -18,21 +18,26 @@ server->routerBookings ++:app.use('/bookings', bookings)
 routerBookings -> auth ++:protect()
 auth -> jwt ++:verify(token, secret)
 auth <- jwt --:decoded
-auth -> modelUser ++:findById(decoded, id)
-modelUser -> DatabaseSchema ++:UserSchema
-modelUser <- DatabaseSchema --:user
-auth <- modelUser --:req.user
-routerBookings <- auth --:next()
 
-routerBookings -> auth ++:authorize("admin",""user)
-routerBookings <-- auth --:next()
+alt [Fail]
+    client <- auth --:response fail
+else [Success]
+    auth -> modelUser ++:findById(decoded, id)
+    modelUser -> DatabaseSchema ++:UserSchema
+    modelUser <- DatabaseSchema --:user
+    auth <- modelUser --:req.user
+    routerBookings <- auth --:next()
 
-routerBookings -> auth ++:deleteBooking()
-auth -> controllersBookings ++:deleteBooking()
-controllersBookings->modelBooking ++:findById(req.params.id)
-modelBooking ->DatabaseSchema ++: BookingSchema
-DatabaseSchema --> modelBooking --: void
-controllersBookings <-- modelBooking --:void
-controllersBookings->client --:success response
+    routerBookings -> auth ++:authorize("admin",""user)
+    routerBookings <-- auth --:next()
+
+    routerBookings -> auth ++:deleteBooking()
+    auth -> controllersBookings ++:deleteBooking()
+    controllersBookings->modelBooking ++:findById(req.params.id)
+    modelBooking ->DatabaseSchema ++: BookingSchema
+    DatabaseSchema --> modelBooking --: void
+    controllersBookings <-- modelBooking --:void
+    controllersBookings->client --:success response
+end
 
 @enduml

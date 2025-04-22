@@ -20,21 +20,31 @@ routerCompanies->routerBookings ++:router.use('\n/:companyId\n/bookings', \nbook
 routerBookings -> auth ++:protect()
 auth -> jwt ++:verify(token, secret)
 auth <- jwt --:decoded
-auth -> modelUser ++:findById(decoded, id)
-modelUser -> DatabaseSchema ++:UserSchema
-modelUser <-- DatabaseSchema --:user
-auth <-- modelUser --:req.user
-routerBookings <- auth --:next()
 
-routerBookings -> auth ++:authorize("admin",""user)
-routerBookings <-- auth --:next()
+alt [Fail]
+    client <- auth --:response fail
+else [Success]
+    auth -> modelUser ++:findById(decoded, id)
+    modelUser -> DatabaseSchema ++:UserSchema
+    modelUser <-- DatabaseSchema --:user
+    auth <-- modelUser --:req.user
+    routerBookings <- auth --:next()
 
-routerBookings -> auth ++:addBooking()
-auth -> controllersBookings ++:addBooking()
-controllersBookings->modelBooking ++:Booking.create();
-modelBooking ->DatabaseSchema ++: BookingSchema
-DatabaseSchema --> modelBooking --: booking
-controllersBookings <-- modelBooking :booking
-controllersBookings->client --:response
+    routerBookings -> auth ++:authorize("admin",""user)
+    routerBookings <-- auth --:next()
+
+    routerBookings -> auth --:addBooking()
+    auth -> controllersBookings --:addBooking()
+    controllersBookings->modelBooking --:Booking.create();
+    modelBooking ->DatabaseSchema ++: BookingSchema
+    DatabaseSchema --> modelBooking --: booking
+    controllersBookings <-- modelBooking :booking
+
+    alt The date is not during May 10-13, 2022
+        controllersBookings->client --:response fail
+    else [success]
+        controllersBookings->client --:response
+    end
+end
 
 @enduml
