@@ -7,7 +7,7 @@ const Company = require('../models/Company');
 exports.getBookings = async (req, res, next) => {
     let query;
 
-    // General users can see only their appointments!
+    // General users can see only their bookings!
     if (req.user.role !== 'admin') {
         query = Booking.find({user: req.user.id}).populate({
             path: 'company',
@@ -15,11 +15,11 @@ exports.getBookings = async (req, res, next) => {
         });
     }
 
-    // If you are an admin, you can see all appointments
+    // If you are an admin, you can see all bookings
     else {
         if (req.params.companyId) {
             console.log('[+]getBookings CompanyId:', req.params.companyId);
-            query = Booking.find({hospital: req.params.companyId}).populate({
+            query = Booking.find({company: req.params.companyId}).populate({
                 path: 'company',
                 select: 'name province tel',
             });
@@ -77,7 +77,7 @@ exports.addBooking = async (req, res, next) => {
         console.log(req.params)
         const company = await Company.findById(req.body.company);
         if (!company) {
-            return res.status(404).json({success: false, message: `No hospital with the id of ${req.params.companyId}`});
+            return res.status(404).json({success: false, message: `No company with the id of ${req.params.companyId}`});
         }
 
         // Add user Id to req.body (login from protect function)
@@ -99,7 +99,7 @@ exports.addBooking = async (req, res, next) => {
         // Check for existed appointment
         const existedBookings = await Booking.find({user: req.user.id});
 
-        // If the user is not an admin, they can only create 3 appointments
+        // If the user is not an admin, they can only create 3 bookings
         if (existedBookings.length >= 3 && req.user.role !== 'admin') {
             return res.status(400).json({success: false, message: `The user with ID ${req.user.id} has already made 3 bookings`});
         }

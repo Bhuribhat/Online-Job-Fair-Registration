@@ -148,7 +148,7 @@ exports.deleteCompany = async (req, res, next) => {
             });
         }
 
-        // Cascade delete (delete all appointments associated with the deleted hospital)
+        // Cascade delete (delete all appointments associated with the deleted company)
         await Booking.deleteMany({ company: req.params.id });
         await Company.deleteOne({ _id: req.params.id });
 

@@ -8,7 +8,7 @@ const { getCompanies, getCompany, createCompany, updateCompany, deleteCompany } 
 const bookingRouter = require('./bookings');
 
 // Re-route into other resource routers
-router.use("/:hospitalId/bookings/", bookingRouter);
+router.use("/:id/bookings/", bookingRouter);
 
 router.route('/')
     .get(getCompanies)

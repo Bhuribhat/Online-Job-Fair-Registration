@@ -204,7 +204,6 @@ $ npm run dev
 
 ### Company
 
-<!-- TODO -->
 <details><summary>1. Create a Single Company</summary>
 
 ![Create a Single Company](./assets/TestFunction/user/create_company.png)
@@ -238,3 +237,32 @@ $ npm run dev
 ### Booking
 
 <!-- TODO -->
+<details><summary>1. Create a Single Booking</summary>
+
+![Create a Single Booking](./assets/TestFunction/user/create_booking.png)
+
+</details>
+
+<details><summary>2. Update a Single Booking</summary>
+
+![Update a Single Booking](./assets/TestFunction/user/update_booking.png)
+
+</details>
+
+<details><summary>3. Get a Single Booking</summary>
+
+![Get a Single Booking](./assets/TestFunction/user/get_booking.png)
+
+</details>
+
+<details><summary>4. Get All Bookings</summary>
+
+![Get All Bookings](./assets/TestFunction/user/get_bookings.png)
+
+</details>
+
+<details><summary>5. Delete a Single Booking</summary>
+
+![Delete a Single Booking](./assets/TestFunction/user/delete_booking.png)
+
+</details>
