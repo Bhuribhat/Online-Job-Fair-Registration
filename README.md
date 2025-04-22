@@ -1,9 +1,14 @@
 # Online Job Fair Registration
 
+> ### Developers
+>
+> - 6770259621 Pachara Boonsarngsuk 
+> - 6772077021 Bhuribhat Ratanasanguanvongs
+
 ### Non-Functional Requirements
 
 - Security:
-    - The system shall authenticate users using usernamepassword.
+    - The system shall authenticate users using username password.
     - The system shall be able to keep user’s transactions confidential.
 - Performance:
     - The system shall response to a request in 3 seconds.
@@ -37,6 +42,34 @@
 
 ---
 
+## Environment
+
+Set `config/config.env`
+
+```bash
+PORT=5000
+NODE_ENV=development
+
+MONGO_URI=
+
+JWT_SECRET=
+JWT_EXPIRE=
+JWT_COOKIE_EXPIRE=
+```
+
+## How To Run The Application
+
+After cloning the repository, you'll need to install the dependencies listed in the `package.json` file. After running `npm install`, the `node_modules` directory will be created, and all required packages will be installed. You can then run the project as usual.
+
+```bash
+$ git clone https://github.com/Bhuribhat/Online-Job-Fair-Registration.git
+$ cd "Online-Job-Fair-Registration"
+$ npm install
+$ npm run dev
+```
+
+---
+
 ## Diagram
 
 ### ER Diagram
@@ -45,9 +78,105 @@
 
 ### Class Diagram
 
-![Class Diagram](./assets/UML/ClassDiagram/classdiagram.svg)
+![Class Diagram](./assets/UML/CLassDiagram/classdiagram.svg)
 
 ### Sequence Diagram
+
+<h4>Auth</h4>
+
+<details><summary>1. Get me</summary>
+
+![GetMe](./assets/UML/SequenceDiagram/Auth/Get%20Me%20(GET).svg)
+
+</details>
+
+<details><summary>2. Login</summary>
+
+![Login](./assets/UML/SequenceDiagram/Auth/Login%20(POST).svg)
+
+</details>
+
+<details><summary>3. Logout</summary>
+
+![Logout](./assets/UML/SequenceDiagram/Auth/Logout%20(GET).svg)
+
+</details>
+
+<details><summary>4. Register</summary>
+
+![Register](./assets/UML/SequenceDiagram/Auth/Register%20(POST).svg)
+
+</details>
+
+<h4>Company</h4>
+
+<details><summary>1. Create a new company</summary>
+
+![Create a new company](./assets/UML/SequenceDiagram/Company/Manage%20Company%20(POST).svg)
+
+</details>
+
+<details><summary>2. Delete a single company</summary>
+
+![Delete a single company](./assets/UML/SequenceDiagram/Company/Manage%20Company%20(DELETE).svg)
+
+</details>
+
+<details><summary>3. Get a single company</summary>
+
+![Get a single company](./assets/UML/SequenceDiagram/Company/Manage%20Company%20(GET%20ONE).svg)
+
+</details>
+
+<details><summary>4. Get all companies</summary>
+
+![Get all companies](./assets/UML/SequenceDiagram/Company/Manage%20Company%20(GET%20ALL).svg)
+
+</details>
+
+<details><summary>5. Update a single company</summary>
+
+![Update a single company](./assets/UML/SequenceDiagram/Company/Manage%20Company%20(PUT).svg)
+
+</details>
+
+<h4>Booking</h4>
+
+<details><summary>1. Create a new booking</summary>
+
+![Create a single booking](./assets/UML/SequenceDiagram/Booking/Manage%20Booking%20(POST).svg)
+
+</details>
+
+<details><summary>2. Delete a single booking</summary>
+
+![Delete a single booking](./assets/UML/SequenceDiagram/Booking/Manage%20Booking%20(DELETE).svg)
+
+</details>
+
+<details><summary>3. Get a single booking</summary>
+
+![Get a single booking](./assets/UML/SequenceDiagram/Booking/Manage%20Booking%20(GET%20ONE).svg)
+
+</details>
+
+<details><summary>4. Get all bookings</summary>
+
+![Get all bookings](./assets/UML/SequenceDiagram/Booking/Manage%20Booking%20(GET%20ALL).svg)
+
+</details>
+
+<details><summary>5. Update a single booking</summary>
+
+![Update a single booking](./assets/UML/SequenceDiagram/Booking/Manage%20Booking%20(PUT).svg)
+
+</details>
+
+---
+
+## __Demo:__ Functional Requirements
+
+### As `User`
 
 #### Auth
 <!-- TODO -->
@@ -58,7 +187,13 @@
 #### Booking
 <!-- TODO -->
 
----
+### As `Admin`
 
-## Demo: Functional Requirements
+#### Auth
+<!-- TODO -->
+
+#### Company
+<!-- TODO -->
+
+#### Booking
 <!-- TODO -->

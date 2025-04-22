@@ -1,0 +1,32 @@
+@startuml Get Me (GET)
+
+header Online Job Fair Registration
+title "Get Me (GET)"
+
+participant "Client" as client
+participant "<<javaScript>>\n:server" as server
+participant "<<router>>\n:auth" as routerAuth
+participant "<<middleware>>\n:auth" as auth
+participant "<<service>>\n:jwt" as jwt
+participant "<<controllers>>\n:auth" as controllersAuth
+participant "<<model>>\n:User" as modelUser
+database "<<Database>>\n:MongoDB" as UsersDatabase
+
+client->server ++:req.get('/auth/me')
+server->routerAuth ++:app.use('/auth', auth)
+routerAuth -> auth ++:protect()
+auth -> jwt ++:verify(token, secret)
+auth <- jwt --:decoded
+auth -> modelUser ++:findById(decoded.id)
+modelUser -> UsersDatabase ++:findById(decode.id)
+modelUser <- UsersDatabase --:user
+auth <- modelUser --:req.user
+routerAuth <- auth --:next()
+routerAuth -> controllersAuth ++:getMe()
+controllersAuth->modelUser ++:findById(req.params.id)
+modelUser ->UsersDatabase ++:findById(decode.id)
+UsersDatabase --> modelUser --:user
+controllersAuth <-- modelUser --:req.user
+controllersAuth->client --:response
+
+@enduml
