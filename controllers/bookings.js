@@ -84,6 +84,19 @@ exports.addBooking = async (req, res, next) => {
         // Add user Id to req.body (login from protect function)
         req.body.user = req.user.id;
 
+        const apptDate = new Date(req.body.apptDate);
+        const startDate = new Date('2022-05-10');
+        const endDate = new Date('2022-05-13');
+
+        // Clear time part for accurate date-only comparison
+        apptDate.setHours(0, 0, 0, 0);
+
+        if (apptDate < startDate || apptDate > endDate) {
+            return res.status(400).json({
+                success: false,
+                message: `Appointment date must be between May 10th and 13th, 2022`
+            });
+        }
         // Check for existed appointment
         const existedBookings = await Booking.find({user: req.user.id});
 
@@ -92,6 +105,7 @@ exports.addBooking = async (req, res, next) => {
             return res.status(400).json({success: false, message: `The user with ID ${req.user.id} has already made 3 bookings`});
         }
         const booking = await Booking.create(req.body);
+        // Check if booking is in required period.
         res.status(200).json({
             success: true, 
             data: booking
