@@ -119,38 +119,33 @@
 
 <h4>Booking</h4>
 
-<!-- TODO -->
 <details><summary>1. Create a new booking</summary>
 
-![]()
+![Create a single booking](./assets/UML/SequenceDiagram/Booking/Manage%20Booking%20(POST).svg)
 
 </details>
 
-<!-- TODO -->
 <details><summary>2. Delete a single booking</summary>
 
-![]()
+![Delete a single booking](./assets/UML/SequenceDiagram/Booking/Manage%20Booking%20(DELETE).svg)
 
 </details>
 
-<!-- TODO -->
 <details><summary>3. Get a single booking</summary>
 
 ![Get a single booking](./assets/UML/SequenceDiagram/Booking/Manage%20Booking%20(GET%20ONE).svg)
 
 </details>
 
-<!-- TODO -->
 <details><summary>4. Get all bookings</summary>
 
 ![Get all bookings](./assets/UML/SequenceDiagram/Booking/Manage%20Booking%20(GET%20ALL).svg)
 
 </details>
 
-<!-- TODO -->
 <details><summary>5. Update a single booking</summary>
 
-![]()
+![Update a single booking](./assets/UML/SequenceDiagram/Booking/Manage%20Booking%20(PUT).svg)
 
 </details>
 

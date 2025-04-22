@@ -14,8 +14,8 @@
     - [ ] Get all companies
     - [ ] Update a single company 
 - `Booking`
-    - [ ] Create a new booking
-    - [ ] Delete a single booking
+    - [x] Create a new booking
+    - [x] Delete a single booking
     - [x] Get a single booking
     - [x] Get all bookings
-    - [ ] Update a single booking 
+    - [x] Update a single booking 

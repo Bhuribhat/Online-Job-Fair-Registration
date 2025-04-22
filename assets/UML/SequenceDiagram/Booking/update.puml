@@ -1,0 +1,44 @@
+@startuml Manage Booking (PUT)
+
+header Online Job Fair Registration
+title "Update a Single Booking (PUT)"
+
+participant "Client" as client
+participant "<<javaScript>>\n:server" as server
+participant "<<middleware>>\n:mail" as mail
+participant "<<router>>\n:bookings" as routerBookings
+participant "<<middleware>>\n:auth" as auth
+participant "<<service>>\n:jwt" as jwt
+participant "<<controllers>>\n:bookings" as controllersBookings
+participant "<<model>>\n:Booking" as modelBooking
+participant "<<model>>\n:User" as modelUser
+database "<<Database>>\n:MongoDB" as DatabaseSchema
+
+client->server ++:req.put('/bookings/:id')
+server->routerBookings ++:app.use('/bookings', bookings)
+routerBookings -> auth ++:protect()
+auth -> jwt ++:verify(token, secret)
+auth <- jwt --:decoded
+auth -> modelUser ++:findById(decoded, id)
+modelUser -> DatabaseSchema ++:UserSchema
+modelUser <- DatabaseSchema --:user
+auth <- modelUser --:req.user
+routerBookings <- auth --:next()
+
+routerBookings -> auth ++:authorize("admin",""user)
+routerBookings <-- auth --:next()
+
+routerBookings -> auth ++:updateBooking()
+auth -> controllersBookings ++:updateBooking()
+controllersBookings->modelBooking ++:findById(req.params.id)
+modelBooking ->DatabaseSchema ++: BookingSchema
+DatabaseSchema --> modelBooking --: booking
+controllersBookings <-- modelBooking --:booking
+
+alt The date is not during May 10-13, 2022
+    controllersBookings->client --:response fail
+else [success]
+    controllersBookings->client --:response
+end
+
+@enduml
