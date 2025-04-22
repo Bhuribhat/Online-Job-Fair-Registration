@@ -1,10 +1,9 @@
-// const Appointment = require('../models/Appointment');
-// const Hospital = require('../models/Hospital');
 const Booking = require('../models/Booking');
 const Company = require('../models/Company');
-// @desc    Get all appointments
-// @route   GET /api/v1/appointments
-// @access  Public
+
+//@desc     Get all bookings
+//@route    Get /api/v1/bookings
+//@access   Public
 exports.getBookings = async (req, res, next) => {
     let query;
 
@@ -43,9 +42,9 @@ exports.getBookings = async (req, res, next) => {
     }
 };
 
-// @desc    Get single appointment
-// @route   GET /api/v1/appointments/:id
-// @access  Public
+//@desc     Get single booking
+//@route    Get /api/v1/bookings/:id
+//@access   Public
 exports.getBooking = async (req, res, next) => {
     try {
         const booking = await Booking.findById(req.params.id).populate({
@@ -65,9 +64,9 @@ exports.getBooking = async (req, res, next) => {
     }
 }
 
-// @desc    Add single appointment
-// @route   POST /api/v1/hospitals/:hospitalId/appointments/
-// @access  Private
+//@desc     Add booking
+//@route    POST /api/v1/companies/:companyId&date/bookings
+//@access   Private
 exports.addBooking = async (req, res, next) => {
     try {
         // console.log(req.body.company)
@@ -116,9 +115,9 @@ exports.addBooking = async (req, res, next) => {
     }
 }
 
-// @desc    Update appointment
-// @route   PUT /api/v1/appointments/:id
-// @access  Private
+//@desc     Update booking
+//@route    Put /api/v1/bookings/:id
+//@access   Private
 exports.updateBooking = async (req, res, next) => {
     try {
         let booking = await Booking.findById(req.params.id);
@@ -144,9 +143,9 @@ exports.updateBooking = async (req, res, next) => {
     }
 }
 
-// @desc    Delete appointment
-// @route   DELETE /api/v1/appointments/:id
-// @access  Private
+//@desc     Delete booking
+//@route    DELETE /api/v1/bookings/:id
+//@access   Private
 exports.deleteBooking = async (req, res, next) => {
     try {
         const booking = await Booking.findById(req.params.id);
