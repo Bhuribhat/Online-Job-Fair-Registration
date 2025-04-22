@@ -174,58 +174,67 @@ $ npm run dev
 
 ---
 
-## __Demo:__ Functional Requirements
+## __Demo:__ Functional Requirements via Postman
 
-### As `User`
+### Auth
 
-#### Auth
-
-1. Register
+<details><summary>1. Register</summary>
 
 ![User Register](./assets/TestFunction/user/register.png)
 
-2. Login
+</details>
+
+<details><summary>2. Login</summary>
 
 ![User Login](./assets/TestFunction/user/login.png)
 
-3. Get Me
+</details>
+
+<details><summary>3. Get Me</summary>
 
 ![User Get Me](./assets/TestFunction/user/getme.png)
 
-4. Logout
+</details>
+
+<details><summary>4. Logout</summary>
 
 ![User Logout](./assets/TestFunction/user/logout.png)
 
-#### Company
+</details>
+
+### Company
+
 <!-- TODO -->
+<details><summary>1. Create a Single Company</summary>
 
-#### Booking
-<!-- TODO -->
+![Create a Single Company](./assets/TestFunction/user/create_company.png)
 
----
+</details>
 
-### As `Admin`
+<details><summary>2. Update a Single Company</summary>
 
-#### Auth
+![Update a Single Company](./assets/TestFunction/user/update_company.png)
 
-1. Register
+</details>
 
-![Admin Register](./assets/TestFunction/admin/register.png)
+<details><summary>3. Get a Single Company</summary>
 
-2. Login
+![Get a Single Company](./assets/TestFunction/user/get_company.png)
 
-![Admin Login](./assets/TestFunction/admin/login.png)
+</details>
 
-3. Get Me
+<details><summary>4. Get All Companies</summary>
 
-![Admin Get Me](./assets/TestFunction/admin/getme.png)
+![Get All Companies](./assets/TestFunction/user/get_companies.png)
 
-4. Logout
+</details>
 
-![Admin Logout](./assets/TestFunction/admin/logout.png)
+<details><summary>5. Delete a Single Company</summary>
 
-#### Company
-<!-- TODO -->
+![Delete a Single Company](./assets/TestFunction/user/delete_company.png)
 
-#### Booking
+</details>
+
+### Booking
+
 <!-- TODO -->
