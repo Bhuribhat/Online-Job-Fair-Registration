@@ -1,14 +1,14 @@
 # Online Job Fair Registration
 
-### Developers
-
-- 6770259621 Pachara Boonsarngsuk 
-- 6772077021 Bhuribhat Ratanasanguanvongs
+> ### Developers
+>
+> - 6770259621 Pachara Boonsarngsuk 
+> - 6772077021 Bhuribhat Ratanasanguanvongs
 
 ### Non-Functional Requirements
 
 - Security:
-    - The system shall authenticate users using usernamepassword.
+    - The system shall authenticate users using username password.
     - The system shall be able to keep user’s transactions confidential.
 - Performance:
     - The system shall response to a request in 3 seconds.
@@ -44,19 +44,15 @@
 
 ## Diagram
 
-<details><summary><h3>ER Diagram</h3></summary>
+### ER Diagram
 
 ![ER Diagram](./assets/UML/ERDiagram/erdiagram.svg)
 
-</details>
-
-<details><summary><h3>Class Diagram</h3></summary>
+### Class Diagram
 
 ![Class Diagram](./assets/UML/CLassDiagram/classdiagram.svg)
 
-</details>
-
-<details><summary><h3>Sequence Diagram</h3></summary>
+### Sequence Diagram
 
 <h4>Auth</h4>
 
@@ -140,14 +136,14 @@
 <!-- TODO -->
 <details><summary>3. Get a single booking</summary>
 
-![]()
+![Get a single booking](./assets/UML/SequenceDiagram/Booking/Manage%20Booking%20(GET%20ONE).svg)
 
 </details>
 
 <!-- TODO -->
 <details><summary>4. Get all bookings</summary>
 
-![]()
+![Get all bookings](./assets/UML/SequenceDiagram/Booking/Manage%20Booking%20(GET%20ALL).svg)
 
 </details>
 
@@ -155,8 +151,6 @@
 <details><summary>5. Update a single booking</summary>
 
 ![]()
-
-</details>
 
 </details>
 

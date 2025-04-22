@@ -16,6 +16,6 @@
 - `Booking`
     - [ ] Create a new booking
     - [ ] Delete a single booking
-    - [ ] Get a single booking
-    - [ ] Get all bookings
+    - [x] Get a single booking
+    - [x] Get all bookings
     - [ ] Update a single booking 
