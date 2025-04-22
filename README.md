@@ -179,7 +179,22 @@ $ npm run dev
 ### As `User`
 
 #### Auth
-<!-- TODO -->
+
+1. Register
+
+![User Register](./assets/TestFunction/user/register.png)
+
+2. Login
+
+![User Login](./assets/TestFunction/user/login.png)
+
+3. Get Me
+
+![User Get Me](./assets/TestFunction/user/getme.png)
+
+4. Logout
+
+![User Logout](./assets/TestFunction/user/logout.png)
 
 #### Company
 <!-- TODO -->
@@ -187,10 +202,27 @@ $ npm run dev
 #### Booking
 <!-- TODO -->
 
+---
+
 ### As `Admin`
 
 #### Auth
-<!-- TODO -->
+
+1. Register
+
+![Admin Register](./assets/TestFunction/admin/register.png)
+
+2. Login
+
+![Admin Login](./assets/TestFunction/admin/login.png)
+
+3. Get Me
+
+![Admin Get Me](./assets/TestFunction/admin/getme.png)
+
+4. Logout
+
+![Admin Logout](./assets/TestFunction/admin/logout.png)
 
 #### Company
 <!-- TODO -->
