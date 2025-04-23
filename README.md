@@ -174,26 +174,95 @@ $ npm run dev
 
 ---
 
-## __Demo:__ Functional Requirements
+## __Demo:__ Functional Requirements via Postman
 
-### As `User`
+### Auth
 
-#### Auth
+<details><summary>1. Register</summary>
+
+![User Register](./assets/TestFunction/user/register.png)
+
+</details>
+
+<details><summary>2. Login</summary>
+
+![User Login](./assets/TestFunction/user/login.png)
+
+</details>
+
+<details><summary>3. Get Me</summary>
+
+![User Get Me](./assets/TestFunction/user/getme.png)
+
+</details>
+
+<details><summary>4. Logout</summary>
+
+![User Logout](./assets/TestFunction/user/logout.png)
+
+</details>
+
+### Company
+
+<details><summary>1. Create a Single Company</summary>
+
+![Create a Single Company](./assets/TestFunction/user/create_company.png)
+
+</details>
+
+<details><summary>2. Update a Single Company</summary>
+
+![Update a Single Company](./assets/TestFunction/user/update_company.png)
+
+</details>
+
+<details><summary>3. Get a Single Company</summary>
+
+![Get a Single Company](./assets/TestFunction/user/get_company.png)
+
+</details>
+
+<details><summary>4. Get All Companies</summary>
+
+![Get All Companies](./assets/TestFunction/user/get_companies.png)
+
+</details>
+
+<details><summary>5. Delete a Single Company</summary>
+
+![Delete a Single Company](./assets/TestFunction/user/delete_company.png)
+
+</details>
+
+### Booking
+
 <!-- TODO -->
+<details><summary>1. Create a Single Booking</summary>
 
-#### Company
-<!-- TODO -->
+![Create a Single Booking](./assets/TestFunction/user/create_booking.png)
 
-#### Booking
-<!-- TODO -->
+</details>
 
-### As `Admin`
+<details><summary>2. Update a Single Booking</summary>
 
-#### Auth
-<!-- TODO -->
+![Update a Single Booking](./assets/TestFunction/user/update_booking.png)
 
-#### Company
-<!-- TODO -->
+</details>
 
-#### Booking
-<!-- TODO -->
+<details><summary>3. Get a Single Booking</summary>
+
+![Get a Single Booking](./assets/TestFunction/user/get_booking.png)
+
+</details>
+
+<details><summary>4. Get All Bookings</summary>
+
+![Get All Bookings](./assets/TestFunction/user/get_bookings.png)
+
+</details>
+
+<details><summary>5. Delete a Single Booking</summary>
+
+![Delete a Single Booking](./assets/TestFunction/user/delete_booking.png)
+
+</details>

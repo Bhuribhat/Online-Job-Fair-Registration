@@ -1,14 +1,13 @@
-// const Appointment = require('../models/Appointment');
-// const Hospital = require('../models/Hospital');
 const Booking = require('../models/Booking');
 const Company = require('../models/Company');
-// @desc    Get all appointments
-// @route   GET /api/v1/appointments
-// @access  Public
+
+//@desc     Get all bookings
+//@route    Get /api/v1/bookings
+//@access   Public
 exports.getBookings = async (req, res, next) => {
     let query;
 
-    // General users can see only their appointments!
+    // General users can see only their bookings!
     if (req.user.role !== 'admin') {
         query = Booking.find({user: req.user.id}).populate({
             path: 'company',
@@ -16,11 +15,11 @@ exports.getBookings = async (req, res, next) => {
         });
     }
 
-    // If you are an admin, you can see all appointments
+    // If you are an admin, you can see all bookings
     else {
         if (req.params.companyId) {
             console.log('[+]getBookings CompanyId:', req.params.companyId);
-            query = Booking.find({hospital: req.params.companyId}).populate({
+            query = Booking.find({company: req.params.companyId}).populate({
                 path: 'company',
                 select: 'name province tel',
             });
@@ -43,9 +42,9 @@ exports.getBookings = async (req, res, next) => {
     }
 };
 
-// @desc    Get single appointment
-// @route   GET /api/v1/appointments/:id
-// @access  Public
+//@desc     Get single booking
+//@route    Get /api/v1/bookings/:id
+//@access   Public
 exports.getBooking = async (req, res, next) => {
     try {
         const booking = await Booking.findById(req.params.id).populate({
@@ -65,9 +64,9 @@ exports.getBooking = async (req, res, next) => {
     }
 }
 
-// @desc    Add single appointment
-// @route   POST /api/v1/hospitals/:hospitalId/appointments/
-// @access  Private
+//@desc     Add booking
+//@route    POST /api/v1/companies/:companyId&date/bookings
+//@access   Private
 exports.addBooking = async (req, res, next) => {
     try {
         // console.log(req.body.company)
@@ -78,7 +77,7 @@ exports.addBooking = async (req, res, next) => {
         console.log(req.params)
         const company = await Company.findById(req.body.company);
         if (!company) {
-            return res.status(404).json({success: false, message: `No hospital with the id of ${req.params.companyId}`});
+            return res.status(404).json({success: false, message: `No company with the id of ${req.params.companyId}`});
         }
 
         // Add user Id to req.body (login from protect function)
@@ -100,7 +99,7 @@ exports.addBooking = async (req, res, next) => {
         // Check for existed appointment
         const existedBookings = await Booking.find({user: req.user.id});
 
-        // If the user is not an admin, they can only create 3 appointments
+        // If the user is not an admin, they can only create 3 bookings
         if (existedBookings.length >= 3 && req.user.role !== 'admin') {
             return res.status(400).json({success: false, message: `The user with ID ${req.user.id} has already made 3 bookings`});
         }
@@ -116,9 +115,9 @@ exports.addBooking = async (req, res, next) => {
     }
 }
 
-// @desc    Update appointment
-// @route   PUT /api/v1/appointments/:id
-// @access  Private
+//@desc     Update booking
+//@route    Put /api/v1/bookings/:id
+//@access   Private
 exports.updateBooking = async (req, res, next) => {
     try {
         let booking = await Booking.findById(req.params.id);
@@ -144,9 +143,9 @@ exports.updateBooking = async (req, res, next) => {
     }
 }
 
-// @desc    Delete appointment
-// @route   DELETE /api/v1/appointments/:id
-// @access  Private
+//@desc     Delete booking
+//@route    DELETE /api/v1/bookings/:id
+//@access   Private
 exports.deleteBooking = async (req, res, next) => {
     try {
         const booking = await Booking.findById(req.params.id);

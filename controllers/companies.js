@@ -1,12 +1,13 @@
 const Booking = require('../models/Booking');
 const Company = require('../models/Company');
-// @desc   Get all hospitals
-// @route  GET /api/v1/hospitals
-// @access Public
+
+//@desc     Get all companies
+//@route    GET /api/v1/companies
+//@access   public
 exports.getCompanies = async (req, res, next) => {
     let query;
     let queryStr;
-    
+
     // Copy req.query
     const reqQuery = {...req.query};
     
@@ -84,9 +85,9 @@ exports.getCompanies = async (req, res, next) => {
     }
 };
 
-// @desc   Get sigle hospital
-// @route  GET /api/v1/hospitals/:id
-// @access Public
+//@desc     Get single company
+//@route    GET /api/v1/companies/:id
+//@access   public
 exports.getCompany = async (req, res, next) => {
     try {
         const company = await Company.findById(req.params.id);
@@ -102,9 +103,9 @@ exports.getCompany = async (req, res, next) => {
     }
 };
 
-// @desc   Create new hospital
-// @route  POST /api/v1/hospitals
-// @access Private
+//@desc     Create a company
+//@route    POST /api/v1/companies
+//@access   private
 exports.createCompany = async (req, res, next) => {
     const company = await Company.create(req.body);
     res.status(201).json({
@@ -113,9 +114,9 @@ exports.createCompany = async (req, res, next) => {
     });
 };
 
-// @desc   Update hospital
-// @route  PUT /api/v1/hospitals/:id
-// @access Private
+//@desc     Update single companies
+//@route    PUT /api/v1/companies/:id
+//@access   private
 exports.updateCompany = async (req, res, next) => {
     try {
         const company = await Company.findByIdAndUpdate(req.params.id, req.body, {
@@ -134,12 +135,11 @@ exports.updateCompany = async (req, res, next) => {
     }
 };
 
-// @desc   Delete hospital
-// @route  DELETE /api/v1/hospitals/:id
-// @access Private
+//@desc     Delete single companies
+//@route    DELETE /api/v1/companies/:id
+//@access   private
 exports.deleteCompany = async (req, res, next) => {
     try {
-        // const hospital = await Hospital.findByIdAndDelete(req.params.id);
         const company = await Company.findById(req.params.id);
         if (!company) {
             res.status(400).json({
@@ -148,7 +148,7 @@ exports.deleteCompany = async (req, res, next) => {
             });
         }
 
-        // Cascade delete (delete all appointments associated with the deleted hospital)
+        // Cascade delete (delete all appointments associated with the deleted company)
         await Booking.deleteMany({ company: req.params.id });
         await Company.deleteOne({ _id: req.params.id });
 
