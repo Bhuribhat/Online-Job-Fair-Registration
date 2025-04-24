@@ -129,6 +129,21 @@ exports.updateBooking = async (req, res, next) => {
         if (booking.user.toString() !== req.user.id && req.user.role !== 'admin') {
             return res.status(401).json({success: false, message: `User ${req.user.id} is not authorized to update this appointment`});
         }
+
+        const apptDate = new Date(req.body.apptDate);
+        const startDate = new Date('2022-05-10');
+        const endDate = new Date('2022-05-13');
+
+        // Clear time part for accurate date-only comparison
+        apptDate.setHours(0, 0, 0, 0);
+
+        if (apptDate < startDate || apptDate > endDate) {
+            return res.status(400).json({
+                success: false,
+                message: `Appointment date must be between May 10th and 13th, 2022`
+            });
+        }
+
         booking = await Booking.findByIdAndUpdate(req.params.id, req.body, {
             new: true,
             runValidators: true
