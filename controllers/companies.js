@@ -2,8 +2,8 @@ const Booking = require('../models/Booking');
 const Company = require('../models/Company');
 const User = require('../models/User');
 
-// @desc   Get all hospitals
-// @route  GET /api/v1/hospitals
+// @desc   Get all companies
+// @route  GET /api/v1/companies
 // @access Public
 exports.getCompanies = async (req, res, next) => {
     let query;
