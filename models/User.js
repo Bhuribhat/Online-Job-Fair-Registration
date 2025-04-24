@@ -27,7 +27,7 @@ const UserSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ['user', 'admin'],
+        enum: ['user', 'admin', 'company'],
         default: 'user'
     },
     password: {
@@ -35,6 +35,19 @@ const UserSchema = new mongoose.Schema({
         required: [true, 'Please add a password'],
         minlength: 6,
         select: false
+    },
+    company: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Company',
+    },
+    gpa: {
+        type: Number,
+        min: 0,
+        max: 4
+    },
+    workExperience: {
+        type: String,
+        maxlength: 200
     },
     resetPasswordToken: String,
     resetPasswordExpire: Date,

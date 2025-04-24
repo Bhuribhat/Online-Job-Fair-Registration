@@ -1,24 +1,46 @@
 const Booking = require('../models/Booking');
 const Company = require('../models/Company');
-
+const User = require('../models/User');
 //@desc     Get all bookings
 //@route    Get /api/v1/bookings
 //@access   Public
 exports.getBookings = async (req, res, next) => {
     let query;
 
-    // General users can see only their bookings!
-    if (req.user.role !== 'admin') {
+    // General users can see only their appointments!
+    // if (req.user.role !== 'admin' && req.user.role == 'user') {
+    // if (req.user.role !== 'admin') {
+
+    //     query = Booking.find({user: req.user.id}).populate({
+    //         path: 'company',
+    //         select: 'name province tel'
+    //     });
+    // }
+    if (req.user.role == 'user') {
         query = Booking.find({user: req.user.id}).populate({
             path: 'company',
             select: 'name province tel'
         });
     }
 
-    // If you are an admin, you can see all bookings
+    else if (req.user.role == 'company') {
+        const company_id = await Company.findOne({ user: req.user.id });
+        // console.log("company")
+        // console.log(company_id)
+        query = Booking.find({company: company_id}).populate({
+            path: 'user',
+            select: 'name gpa workExperience'
+        });
+    }
+
+    // else if (req.user.role !== 'admin' && req.user.role == 'company') {
+
+    // }
+
+    // If you are an admin, you can see all appointments
     else {
         if (req.params.companyId) {
-            console.log('[+]getBookings CompanyId:', req.params.companyId);
+            console.log('[+]getCompanies CompanyId:', req.params.companyId);
             query = Booking.find({company: req.params.companyId}).populate({
                 path: 'company',
                 select: 'name province tel',
@@ -30,15 +52,15 @@ exports.getBookings = async (req, res, next) => {
         });
     }
     try {
-        const bookings = await query;
+        const companies = await query;
         res.status(200).json({
             success: true,
-            count: bookings.length,
-            data: bookings
+            count: companies.length,
+            data: companies
         });
     } catch (error) {
         console.log(error);
-        return res.status(500).json({success: false, message: "Cannot find Appointment"});
+        return res.status(500).json({success: false, message: "Cannot find Booking"});
     }
 };
 
@@ -168,15 +190,53 @@ exports.deleteBooking = async (req, res, next) => {
             return res.status(404).json({success: false, message: `No booking with the id of ${req.params.id}`});
         }
 
-        // Make sure user is the appointment owner
-        if (booking.user.toString() !== req.user.id && req.user.role !== 'admin') {
-            return res.status(401).json({success: false, message: `User ${req.user.id} is not authorized to delete this appointment`});
+        if (req.user.role == 'company') {
+            const date = req.body.reqDate;
+            // console.log(date);
+            const company = await Company.findOne({user: req.user.id})
+            // console.log(company);
+            if (booking.company.toString() != company.id) {
+                return res.status(401).json({
+                    success: false, 
+                    message: `Company User ${company.id} is not authorized to delete this appointment`
+                });
+            }
+            if (!date){
+                return res.status(400).json({
+                    success: false, 
+                    message: `Please add date`
+                });
+            }
+            const requestDate = new Date(date);
+            const appointmentDate = new Date(booking.apptDate);
+
+            const diffInMs = appointmentDate - requestDate;
+            const diffInHours = diffInMs / (1000 * 60 * 60); 
+
+            if (diffInHours < 24) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'Cancellations must be made at least 24 hours in advance'
+                });
+            }
+            await booking.deleteOne();
+            res.status(200).json({
+                success: true, 
+                data: {}
+            });
         }
-        await booking.deleteOne();
-        res.status(200).json({
-            success: true, 
-            data: {}
-        });
+
+        // Make sure user is the appointment owner
+        else{
+            if (booking.user.toString() !== req.user.id && req.user.role !== 'admin') {
+                return res.status(401).json({success: false, message: `User ${req.user.id} is not authorized to delete this appointment`});
+            }
+            await booking.deleteOne();
+            res.status(200).json({
+                success: true, 
+                data: {}
+            });
+        }
     } catch (error) {
         console.log(error.stack);
         return res.status(500).json({success: false, message: "Cannot delete booking"});

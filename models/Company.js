@@ -24,7 +24,12 @@ const CompanySchema = new mongoose.Schema({
     description: {
         type: String,
         required: [true, 'Please add a description'],
-    }
+    },
+    user: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User',
+        required: [true, 'Please add a reference user account']
+    },
 }, {
     toJSON: {virtuals: true},
     toObject: {virtuals: true}

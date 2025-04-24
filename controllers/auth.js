@@ -117,3 +117,27 @@ exports.logout = async (req, res, next) => {
         data: {},
     });
 };
+
+exports.updateMe = async (req, res, next) => {
+    try {
+        // Find the user and update with the request body
+        const user = await User.findByIdAndUpdate(req.user.id, req.body, {
+            new: true,            // return the updated document
+            runValidators: true   // run schema validators on update
+        });
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: 'User not found'
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            data: user
+        });
+    } catch (err) {
+        next(err);
+    }
+};
