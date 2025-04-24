@@ -2,6 +2,7 @@
 // const Hospital = require('../models/Hospital');
 const Booking = require('../models/Booking');
 const Company = require('../models/Company');
+const User = require('../models/User');
 // @desc    Get all appointments
 // @route   GET /api/v1/appointments
 // @access  Public
@@ -9,18 +10,40 @@ exports.getBookings = async (req, res, next) => {
     let query;
 
     // General users can see only their appointments!
-    if (req.user.role !== 'admin') {
+    // if (req.user.role !== 'admin' && req.user.role == 'user') {
+    // if (req.user.role !== 'admin') {
+
+    //     query = Booking.find({user: req.user.id}).populate({
+    //         path: 'company',
+    //         select: 'name province tel'
+    //     });
+    // }
+    if (req.user.role == 'user') {
         query = Booking.find({user: req.user.id}).populate({
             path: 'company',
             select: 'name province tel'
         });
     }
 
+    else if (req.user.role == 'company') {
+        const company_id = await Company.findOne({ user: req.user.id });
+        // console.log("company")
+        // console.log(company_id)
+        query = Booking.find({company: company_id}).populate({
+            path: 'user',
+            select: 'name gpa workExperience'
+        });
+    }
+
+    // else if (req.user.role !== 'admin' && req.user.role == 'company') {
+
+    // }
+
     // If you are an admin, you can see all appointments
     else {
         if (req.params.companyId) {
-            console.log('[+]getBookings CompanyId:', req.params.companyId);
-            query = Booking.find({hospital: req.params.companyId}).populate({
+            console.log('[+]getCompanies CompanyId:', req.params.companyId);
+            query = Booking.find({company: req.params.companyId}).populate({
                 path: 'company',
                 select: 'name province tel',
             });
@@ -31,15 +54,15 @@ exports.getBookings = async (req, res, next) => {
         });
     }
     try {
-        const bookings = await query;
+        const companies = await query;
         res.status(200).json({
             success: true,
-            count: bookings.length,
-            data: bookings
+            count: companies.length,
+            data: companies
         });
     } catch (error) {
         console.log(error);
-        return res.status(500).json({success: false, message: "Cannot find Appointment"});
+        return res.status(500).json({success: false, message: "Cannot find Booking"});
     }
 };
 
@@ -78,7 +101,7 @@ exports.addBooking = async (req, res, next) => {
         console.log(req.params)
         const company = await Company.findById(req.body.company);
         if (!company) {
-            return res.status(404).json({success: false, message: `No hospital with the id of ${req.params.companyId}`});
+            return res.status(404).json({success: false, message: `No company with the id of ${req.params.companyId}`});
         }
 
         // Add user Id to req.body (login from protect function)

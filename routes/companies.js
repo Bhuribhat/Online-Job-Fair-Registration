@@ -189,7 +189,7 @@ router.use("/:hospitalId/bookings/", bookingRouter);
 
 router.route('/')
     .get(getCompanies)
-    .post(protect, authorize('admin'), createCompany);
+    .post(protect, authorize('admin', 'company'), createCompany);
 
 router.route('/:id')
     .get(getCompany)

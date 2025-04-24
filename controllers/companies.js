@@ -1,5 +1,7 @@
 const Booking = require('../models/Booking');
 const Company = require('../models/Company');
+const User = require('../models/User');
+
 // @desc   Get all hospitals
 // @route  GET /api/v1/hospitals
 // @access Public
@@ -106,11 +108,33 @@ exports.getCompany = async (req, res, next) => {
 // @route  POST /api/v1/hospitals
 // @access Private
 exports.createCompany = async (req, res, next) => {
-    const company = await Company.create(req.body);
-    res.status(201).json({
-        success: true, 
-        data: company
-    });
+    try {
+        // Find the user by ID
+        // console.log(req.body)
+        const user = await User.findById(req.body.user);
+        // console.log(user)
+        // If user not found or role is not 'company'
+        if (!user) {
+            return res.status(403).json({
+                success: false,
+                message: 'You need user account for company management'
+            });
+        }
+        if (user.role !== 'company'){
+            return res.status(403).json({
+                success: false,
+                message: 'To create a company, you need to add a user account with role "company"'
+            });
+        }
+        const company = await Company.create(req.body);
+        res.status(201).json({
+            success: true, 
+            data: company
+        });
+    }
+    catch (err) {
+        next(err);
+    }
 };
 
 // @desc   Update hospital
