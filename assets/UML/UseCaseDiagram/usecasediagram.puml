@@ -1,0 +1,22 @@
+@startuml
+left to right direction
+
+actor User
+actor Admin
+
+rectangle "Online Job Fair Registration" {
+    
+    (View Companies) as VC
+    (Register) as RG
+    (Manage Booking) as MB
+    (Manage Company) as MC
+
+    RG <-- Admin
+    MC <-- Admin
+    MB <-- Admin
+
+    User --> VC
+    User --> MB
+    User --> RG
+}
+@enduml

@@ -72,6 +72,10 @@ $ npm run dev
 
 ## Diagram
 
+### Use Case Diagram
+
+![Use Case Diagram](./assets/UML/UseCaseDiagram/usecasediagram.svg)
+
 ### ER Diagram
 
 ![ER Diagram](./assets/UML/ERDiagram/erdiagram.svg)
