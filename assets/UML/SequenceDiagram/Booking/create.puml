@@ -40,7 +40,7 @@ else [Success]
     DatabaseSchema --> modelBooking --: booking
     controllersBookings <-- modelBooking :booking
 
-    alt The date is not during May 10-13, 2022
+    alt [The date is not during May 10-13, 2022] and [Existing booking of the user >= 3]
         controllersBookings->client --:response fail
     else [success]
         controllersBookings->client --:response
